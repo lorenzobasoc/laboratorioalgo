@@ -86,11 +86,12 @@ public class Bst {
         public void add(String n, String p, Boolean isLeftSon) {
             Node node = new Node(Integer.parseInt(n));
             Node parent = find(Integer.parseInt(p));
+            if (parent!=null){
             if (isLeftSon) {
                 parent.left = node;
             } else {
                 parent.right = node;
-            }
+            }}
         }
 
         public Node find(int key) {

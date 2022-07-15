@@ -7,37 +7,41 @@ public class Bst {
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
         String[] ss = input.split(" ");
-        System.out.println(IsBst(ss));
+        Bst b = new Bst();
+        System.out.println(b.IsBst(ss));
     }
-    public static int IsBst(String[] A) {
-        int n = A.length();
+   public int IsBst(String[] A) {
+        if (A[0].equals("NULL")) {
+            return 1;
+        }
+        int n = A.length;
         int key = Integer.parseInt(A[0]);
         Node root = new Node(key);
         Tree tree = new Tree(root);
-        String[] parents = new String[A.length()];
-        for (int l = 0; l < parents.length(); l++) {
+        String[] parents = new String[n];
+        for (int l = 0; l < parents.length; l++) {
             parents[l] = "";
         }
         parents[0] = A[0];
         int j = 0;
         int count = 0;
         Boolean go = true;
-        for (int i = 1; i < A.length(); i++) {
-            if (A[i] != "NULL") {
+        for (int i = 1; i < n; i++) {
+            if (!A[i].equals("NULL")) {
                 if (count == 1) {
-                    tree.add(A[i], parent[j], false);
-                    parent[j] = A[i];
+                    tree.add(A[i], parents[j], false);
+                    parents[j] = A[i];
                     count = 0;
                     go = true;
                 } else {
-                    tree.add(A[i], parent[j], true);
+                    tree.add(A[i], parents[j], true);
                     j++;
-                    parent[j] = A[i];
+                    parents[j] = A[i];
                 }
         } else {
             if (go) {
                 int k = i;
-                while (A[k] == "NULL") {
+                while (A[k].equals("NULL")) {
                     count++;
                     if (k != n - 1) {
                         k++;
@@ -46,7 +50,7 @@ public class Bst {
                     }
                 }
                 while (count != 1) {
-                    parent[j] = "";
+                    parents[j] = "";
                     j--;
                     count--;
                     go = false;
@@ -55,20 +59,33 @@ public class Bst {
         }
 
         }
-        Boolean result = tree.check(tree.root, Integer.minValue, Integer.maxValue);
+        Boolean result = tree.check(tree.root, Integer.MIN_VALUE, Integer.MAX_VALUE);
         return result ? 1 : 0;
     }
 
-    public class Tree {
+    class Node {
+            public int key;
+            public String value;
+            public Node right;
+            public Node left;
+
+            public Node(int key){
+                this.key = key;
+                right = null;
+                left = null;
+            } 
+        }
+
+     class Tree {
         Node root;
 
         public Tree(Node n) {
             root = n;
         }
         
-        public void add(String n, String parent, Boolean isLeftSon) {
+        public void add(String n, String p, Boolean isLeftSon) {
             Node node = new Node(Integer.parseInt(n));
-            Node parent = find(Integer.ParseInt(parent));
+            Node parent = find(Integer.parseInt(p));
             if (isLeftSon) {
                 parent.left = node;
             } else {
@@ -81,13 +98,18 @@ public class Bst {
         }
 
         private Node findRecursive(Node node, int key){
-            if (key == node.key ) {
-                return node;
-            } else if (key < node.key) {
-                return findRecursive(node.left, key);
-            } else {
-                return findRecursive(node.right, key);
-            }
+            if (node == null) {
+                    return null;
+                }
+                if (node.key == key) {
+                    return node;
+                }
+                Node res1 = findRecursive(node.left, key);
+                if(res1 != null) {
+                    return res1;
+                }
+                Node res2 = findRecursive(node.right, key);
+                return res2;
         }
     
 
@@ -101,16 +123,5 @@ public class Bst {
             return check(node.left, min, node.key - 1) && check(node.right, node.key + 1, max);
         }
 
-        class Node {
-            public int key;
-            public String value;
-            public Node right;
-            public Node left;
-
-            public Node(int key){
-                this.key = key;
-                right = null;
-                left = null;
-            } 
-        }
     }
+}

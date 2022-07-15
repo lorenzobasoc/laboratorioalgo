@@ -9,7 +9,15 @@ public class PeriodNaive {
         System.out.println(P(n, r));
     }
     
-    // LINEARE
+    public static int P(int n, int r) {
+        return n - r;
+    }
+    
+    /* LINEARE
+        L'algoritmo è compsto da 6 operazioni di assegnazione di costo θ(1), e un ciclo while che itera sull'intera lunghezza dell'input. 
+        All'interno di questo sono presenti solo operazioni di confronto e assegnazione, sempre di costo θ(1) che non provocano l'aumentare della complessità generale
+        dell'algoritmo, avendo quindi terminazione in tempo lineare ( θ(n) ).
+    */
     public static int Bordo(String s) {
         int n = s.length();
         int[] lps = new int[n];
@@ -52,5 +60,4 @@ public class PeriodNaive {
             }
             return true;
     }
-}
 }

@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class PeriodNaive {
+public class periodoFrazionario {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
@@ -14,9 +14,9 @@ public class PeriodNaive {
     }
     
     /* LINEARE
-        L'algoritmo è compsto da 6 operazioni di assegnazione di costo θ(1), e un ciclo while che itera sull'intera lunghezza dell'input. 
-        All'interno di questo sono presenti solo operazioni di confronto e assegnazione, sempre di costo θ(1) che non provocano l'aumentare della complessità generale
-        dell'algoritmo, avendo quindi terminazione in tempo lineare ( θ(n) ).
+        L'algoritmo è compsto da 6 operazioni di assegnazione di costo Theta(1), e un ciclo while che itera sull'intera lunghezza dell'input. 
+        All'interno di questo sono presenti solo operazioni di confronto e assegnazione, sempre di costo Theta(1) che non provocano l'aumentare della complessità generale
+        dell'algoritmo, avendo quindi terminazione in tempo lineare ( Theta(n) ).
     */
     public static int Bordo(String s) {
         int n = s.length();
